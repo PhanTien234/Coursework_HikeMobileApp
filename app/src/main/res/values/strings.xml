@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">COMP1786_CW</string>
+    <string name="app_name">HikeAppCW</string>
     <string name="name_hike">Name of the hike<font color='@android:color/red' size="15"><sup>*</sup></font></string>
     <string name="location">Location<font color='@android:color/red' size="15"><sup>*</sup></font></string>
     <string name="date_hike">Date of the hike<font color='@android:color/red' size="15"><sup>*</sup></font></string>

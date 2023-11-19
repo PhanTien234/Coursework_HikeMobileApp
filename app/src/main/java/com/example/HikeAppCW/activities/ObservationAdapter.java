@@ -1,4 +1,4 @@
-package com.example.testcw.activities;
+package com.example.HikeAppCW.activities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testcw.R;
-import com.example.testcw.fragments.EditObservationFragment;
-import com.example.testcw.models.Observation;
+import com.example.HikeAppCW.R;
+import com.example.HikeAppCW.fragments.EditObservationFragment;
+import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;

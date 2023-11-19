@@ -1,4 +1,4 @@
-package com.example.testcw.activities;
+package com.example.HikeAppCW.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.testcw.fragments.AddHikeFragment;
-import com.example.testcw.fragments.HomeFragment;
-import com.example.testcw.R;
-import com.example.testcw.fragments.SearchFragment;
+import com.example.HikeAppCW.fragments.AddHikeFragment;
+import com.example.HikeAppCW.fragments.HomeFragment;
+import com.example.HikeAppCW.R;
+import com.example.HikeAppCW.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

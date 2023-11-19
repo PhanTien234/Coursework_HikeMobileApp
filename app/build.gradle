@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.testcw'
+    namespace 'com.example.HikeAppCW'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.testcw"
+        applicationId 'com.HikeAppCW'
         minSdk 29
         targetSdk 33
         versionCode 1

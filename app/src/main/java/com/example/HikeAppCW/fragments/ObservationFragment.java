@@ -1,12 +1,9 @@
-package com.example.testcw.fragments;
+package com.example.HikeAppCW.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,11 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.testcw.R;
-import com.example.testcw.activities.ObservationAdapter;
-import com.example.testcw.databases.AppDatabase;
-import com.example.testcw.models.Observation;
-import com.google.android.material.button.MaterialButton;
+import com.example.HikeAppCW.R;
+import com.example.HikeAppCW.activities.ObservationAdapter;
+import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;

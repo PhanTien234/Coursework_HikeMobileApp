@@ -1,4 +1,4 @@
-package com.example.testcw.dao;
+package com.example.HikeAppCW.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.testcw.models.Hike;
+import com.example.HikeAppCW.models.Hike;
 
 import java.util.List;
 

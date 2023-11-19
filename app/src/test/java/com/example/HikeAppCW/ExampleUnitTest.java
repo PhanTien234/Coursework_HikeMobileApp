@@ -1,4 +1,4 @@
-package com.example.testcw;
+package com.example.HikeAppCW;
 
 import org.junit.Test;
 

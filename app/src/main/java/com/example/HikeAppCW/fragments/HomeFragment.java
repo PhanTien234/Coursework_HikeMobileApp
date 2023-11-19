@@ -1,4 +1,4 @@
-package com.example.testcw.fragments;
+package com.example.HikeAppCW.fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -13,12 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.testcw.R;
-import com.example.testcw.activities.HikeAdapter;
-import com.example.testcw.databases.AppDatabase;
-import com.example.testcw.models.Hike;
-import com.example.testcw.models.Observation;
-import com.google.android.material.button.MaterialButton;
+import com.example.HikeAppCW.R;
+import com.example.HikeAppCW.activities.HikeAdapter;
+import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.models.Hike;
+import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;

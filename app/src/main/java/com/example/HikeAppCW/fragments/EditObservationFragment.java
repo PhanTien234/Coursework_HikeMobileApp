@@ -1,14 +1,10 @@
-package com.example.testcw.fragments;
+package com.example.HikeAppCW.fragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
@@ -23,11 +19,10 @@ import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.example.testcw.R;
-import com.example.testcw.databases.AppDatabase;
-import com.example.testcw.models.Observation;
+import com.example.HikeAppCW.R;
+import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.button.MaterialButton;
 
 import java.time.LocalDate;

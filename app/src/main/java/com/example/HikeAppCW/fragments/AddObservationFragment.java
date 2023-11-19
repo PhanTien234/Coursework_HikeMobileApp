@@ -1,4 +1,4 @@
-package com.example.testcw.fragments;
+package com.example.HikeAppCW.fragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -25,9 +25,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.testcw.R;
-import com.example.testcw.databases.AppDatabase;
-import com.example.testcw.models.Observation;
+import com.example.HikeAppCW.R;
+import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.button.MaterialButton;
 
 import java.time.LocalDate;
