@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AddObservationFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/addOBtitle"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="Add Observation"
+            android:textSize="33dp"
+            android:fontFamily="@font/avob" />
+
+        <TextView
+            style="@style/textTile"
+            android:text="@string/name_observation" />
+
+        <EditText
+            android:id="@+id/obName"
+            style="@style/textInput"
+            android:hint="I saw somethings"
+            android:textAlignment="textStart" />
+
+        <TextView
+            style="@style/textTile"
+            android:text="@string/time_observation" />
+
+        <TextView
+            android:id="@+id/obTime"
+            style="@style/textInput"
+            android:layout_width="76dp"
+            android:hint="00:00"
+            android:textAlignment="textStart" />
+
+        <TextView
+            style="@style/textTile"
+            android:text="@string/date_observation" />
+
+        <TextView
+            android:id="@+id/obDate"
+            style="@style/textInput"
+            android:layout_width="158dp"
+            android:hint="dd/MM/yyyy"
+            android:textAlignment="textStart" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="5dp"
+            android:gravity="center">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="@string/weather">
+
+                <AutoCompleteTextView
+                    android:id="@+id/weatherLevel"
+                    style="@style/textTile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <TextView
+            style="@style/textTile"
+            android:text="Comments" />
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/obComment"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/edit_text_border"
+            android:inputType="textMultiLine"
+            android:gravity="start|top"
+            android:padding="10dp"
+            android:fontFamily="@font/avo"
+            android:textColor="@color/black"
+            android:hint="@string/comment" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addObButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:backgroundTint="@color/btncolor"
+            android:fontFamily="@font/avob"
+            android:text="ADD"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</FrameLayout>

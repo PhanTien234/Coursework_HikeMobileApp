@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.EditHikeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="Update hike"
+            android:textSize="33dp"
+            android:fontFamily="@font/bahnschrift" />
+
+        <TextView
+            style="@style/textTile"
+            android:text="@string/name_hike" />
+
+        <EditText
+            android:id="@+id/editHikeName"
+            style="@style/textInput"
+            android:hint="Name of the hike"
+            android:textAlignment="textStart" />
+
+        <TextView
+            style="@style/textTile"
+            android:text="@string/location" />
+        <EditText
+            android:id="@+id/editHikeLocation"
+            style="@style/textInput"
+            android:textAlignment="textStart"
+            android:hint="Location" />
+
+        <TextView
+            style="@style/textTile"
+            android:text="@string/date_hike" />
+        <TextView
+            android:id="@+id/editHikeDate"
+            style="@style/textInput"
+            android:textAlignment="textStart"
+            android:hint="dd/mm/yyyy"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/textTile"
+                android:text="@string/parking" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+            <RadioButton
+                android:id="@+id/radioYesEdit"
+                style="@style/radioButton"
+                android:checked="true"
+                android:text="Yes"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+            <RadioButton
+                android:id="@+id/radioNoEdit"
+                style="@style/radioButton"
+                android:text="No"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:gravity="center">
+            <TextView
+                style="@style/textTile"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/length" />
+            <EditText
+                android:id="@+id/editHikeLength"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/textInput"
+                android:hint="100"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="5dp"
+            android:gravity="center">
+            <!--<TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/textTile"
+                android:text="@string/difficult" />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="@string/difficult">
+
+                <AutoCompleteTextView
+                    android:id="@+id/editHikeLevel"
+                    style="@style/textTile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <TextView
+            style="@style/textTile"
+            android:text="Description" />
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/editHikeDescription"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/edit_text_border"
+            android:inputType="textMultiLine"
+            android:gravity="start|top"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:hint="Description about the hike" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/updateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:backgroundTint="@color/btncolor"
+            android:fontFamily="@font/cassadia"
+            android:text="UPDATE"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</FrameLayout>

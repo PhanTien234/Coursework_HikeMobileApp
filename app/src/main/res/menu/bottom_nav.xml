@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Add"
+        android:id="@+id/navAdd"
+        android:icon="@drawable/icon_addfragment"/>
+    <item android:title="Home"
+        android:id="@+id/navHome"
+        android:icon="@drawable/icon_homefragment"/>
+
+    <item android:title="Search"
+        android:id="@+id/navSearch"
+        android:icon="@drawable/icon_search"/>
+</menu>

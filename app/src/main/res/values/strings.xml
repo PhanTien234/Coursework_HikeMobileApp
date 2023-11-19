@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">COMP1786_CW</string>
+    <string name="name_hike">Name of the hike<font color='@android:color/red' size="15"><sup>*</sup></font></string>
+    <string name="location">Location<font color='@android:color/red' size="15"><sup>*</sup></font></string>
+    <string name="date_hike">Date of the hike<font color='@android:color/red' size="15"><sup>*</sup></font></string>
+    <string name="parking">Parking available<font color='@android:color/red' size="15"><sup>*</sup></font></string>
+    <string name="length">Length of the hike<font color='@android:color/red' size="15"><sup>*</sup></font></string>
+    <string name="difficult">Difficulty level<font color='@android:color/red'>*</font></string>
+    <string name="weather">Weather<font color='@android:color/red'>*</font></string>
+    <string name="delete_hike"><font color='#ff2400'>Delete Hike</font></string>
+    <string name="delete"><font color='#ff2400'>Delete </font></string>
+    <string name="update_hike"><font color='#52d053'>Update hike </font></string>
+    <string name="update"><font color='#52d053'>Update</font></string>
+    <string name="cancel"><font color='#000000'>Cancel</font></string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="level_list">
+        <item>Easy</item>
+        <item>Moderate</item>
+        <item>Difficult</item>
+        <item>Extremely Difficult</item>
+    </string-array>
+
+    <string-array name="weather_list">
+        <item>Sunny</item>
+        <item>Rainy</item>
+        <item>Windy</item>
+        <item>Cloudy</item>
+    </string-array>
+
+    <string name="name_observation">Observation<font color='@android:color/red' size="15"><sup>*</sup></font></string>
+    <string name="time_observation">Time of observation<font color='@android:color/red' size="15"><sup>*</sup></font></string>
+    <string name="date_observation">Date of observation<font color='@android:color/red' size="15"><sup>*</sup></font></string>
+    <string name="comment"><i>Description about the observation ....</i></string>
+    <string name="delete_ob"><font color='#ff2400'>Delete Observation</font></string>
+
+</resources>
