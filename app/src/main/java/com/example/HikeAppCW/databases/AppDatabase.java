@@ -1,15 +1,23 @@
 package com.example.HikeAppCW.databases;
 
-import androidx.room.Database;
-import androidx.room.RoomDatabase;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
-import com.example.HikeAppCW.dao.HikeDao;
-import com.example.HikeAppCW.dao.ObservationDao;
-import com.example.HikeAppCW.models.Hike;
-import com.example.HikeAppCW.models.Observation;
 
-@Database(entities = {Hike.class, Observation.class}, version = 1)
-public abstract class AppDatabase extends RoomDatabase {
-    public abstract HikeDao hikeDao();
-    public abstract ObservationDao observationDao();
+public class AppDatabase {
+    private static DatabaseHelper databaseHelper;
+
+    public static void init(Context context) {
+        if (databaseHelper == null) {
+            databaseHelper = new DatabaseHelper(context);
+        }
+    }
+
+    public static SQLiteDatabase getWritableDatabase() {
+        return databaseHelper.getWritableDatabase();
+    }
+
+    public static SQLiteDatabase getReadableDatabase() {
+        return databaseHelper.getReadableDatabase();
+    }
 }

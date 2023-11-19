@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +14,16 @@ import android.view.ViewGroup;
 
 import com.example.HikeAppCW.R;
 import com.example.HikeAppCW.activities.HikeAdapter;
-import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Hike;
 import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements HikeAdapter.OnClickListener{
+public class HikeFragment extends Fragment implements HikeAdapter.OnClickListener {
 
-    private AppDatabase appDatabase;
+    private DatabaseHelper databaseHelper;
     private HikeAdapter hikeAdapter;
     private List<Hike> hikeList;
     private List<Observation> observationList;
@@ -35,56 +34,49 @@ public class HomeFragment extends Fragment implements HikeAdapter.OnClickListene
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        appDatabase = Room.databaseBuilder(getActivity(), AppDatabase.class, "hike_database_db")
-                .allowMainThreadQueries().build();
+        databaseHelper = new DatabaseHelper(getContext());
 
-        FloatingActionButton deleteAll = (FloatingActionButton) v.findViewById(R.id.deleteAll);
-        deleteAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteAll();
-            }
-        });
+        FloatingActionButton deleteAll = v.findViewById(R.id.deleteAll);
+        deleteAll.setOnClickListener(view -> deleteAll());
 
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        hikeList = appDatabase.hikeDao().getAllHike();
-        hikeAdapter = new HikeAdapter(getContext(),hikeList, this);
+        hikeList = databaseHelper.getAllHikes();
+        hikeAdapter = new HikeAdapter(getContext(), hikeList, this);
         recyclerView.setAdapter(hikeAdapter);
 
         return v;
     }
 
-
-    public void onReplaceFrame(Fragment fragment){
+    public void onReplaceFrame(Fragment fragment) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, fragment);
         ft.commit();
     }
 
-    public void setDataFragment(Hike hike, Fragment fragment){
+    public void setDataFragment(Hike hike, Fragment fragment) {
         Bundle result = new Bundle();
-        result.putLong("h_id",hike.hike_id);
-        result.putString("h_name",hike.name);
-        result.putString("h_location",hike.location);
-        result.putString("h_date",hike.date);
-        result.putString("h_parking",hike.parking);
-        result.putString("h_length",hike.length);
-        result.putString("h_level",hike.level);
-        result.putString("h_description",hike.description);
+        result.putLong("h_id", hike.getId());
+        result.putString("h_name", hike.getName());
+        result.putString("h_location", hike.getLocation());
+        result.putString("h_date", hike.getDate());
+        result.putString("h_parking", hike.getParking());
+        result.putString("h_length", hike.getLength());
+        result.putString("h_level", hike.getLevel());
+        result.putString("h_description", hike.getDescription());
         fragment.setArguments(result);
-        getParentFragmentManager().setFragmentResult("h_data",result);
+        getParentFragmentManager().setFragmentResult("h_data", result);
     }
 
     @Override
-    public void onDeleteClick(Hike hike){
+    public void onDeleteClick(Hike hike) {
         new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.trash)
                 .setTitle(R.string.delete_hike)
-                .setMessage("Are you sure to delete this hike "+hike.name+" ?")
-                .setPositiveButton(R.string.delete, (dialog, which)->{
-                    appDatabase.hikeDao().deleteHike(hike);
+                .setMessage("Are you sure to delete this hike " + hike.getName() + " ?")
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    databaseHelper.deleteHike(hike.getId());
                     hikeList.remove(hike);
                     hikeAdapter.notifyDataSetChanged();
                 })
@@ -93,21 +85,18 @@ public class HomeFragment extends Fragment implements HikeAdapter.OnClickListene
                 .show();
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.trash)
                 .setTitle(R.string.delete_hike)
                 .setMessage("Are you sure to delete all hikes ?")
-                .setPositiveButton(R.string.delete, (dialog, which)->{
-                    appDatabase.hikeDao().deleteAll();
-                    hikeList.removeAll(hikeList);
-
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    databaseHelper.deleteAllHikes();
+                    hikeList.clear();
                     hikeAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .setCancelable(true)
                 .show();
     }
-
-
 }

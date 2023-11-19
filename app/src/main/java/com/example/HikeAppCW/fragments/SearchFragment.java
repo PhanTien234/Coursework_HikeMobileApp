@@ -17,13 +17,14 @@ import android.widget.EditText;
 import com.example.HikeAppCW.R;
 import com.example.HikeAppCW.activities.HikeAdapter;
 import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Hike;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
 public class SearchFragment extends Fragment implements HikeAdapter.OnClickListener {
-    private AppDatabase appDatabase;
+    private DatabaseHelper databaseHelper;
     private HikeAdapter hikeAdapter;
     private List<Hike> hikeList;
     String name;
@@ -34,19 +35,17 @@ public class SearchFragment extends Fragment implements HikeAdapter.OnClickListe
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
 
-        appDatabase = Room.databaseBuilder(getActivity(), AppDatabase.class, "hike_database_db")
-                .allowMainThreadQueries().build();
+        databaseHelper = new DatabaseHelper(getContext());
 
         RecyclerView recyclerView = v.findViewById(R.id.recyclerViewSearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        MaterialButton searchBtn = (MaterialButton) v.findViewById(R.id.searchButton);
+        MaterialButton searchBtn = v.findViewById(R.id.searchButton);
         searchBtn.setOnClickListener(view -> {
             EditText searchText = v.findViewById(R.id.searchByName);
             name = "%" + searchText.getText().toString() + "%";
-            hikeList = appDatabase.hikeDao().searchHikeName(name);
-            hikeAdapter = new HikeAdapter(getContext(),hikeList, this);
+            hikeList = databaseHelper.searchHikeName(name);
+            hikeAdapter = new HikeAdapter(getContext(), hikeList, this);
             recyclerView.setAdapter(hikeAdapter);
         });
 
@@ -59,38 +58,34 @@ public class SearchFragment extends Fragment implements HikeAdapter.OnClickListe
         ft.replace(R.id.frameLayout, fragment);
         ft.commit();
     }
-
-    public void setDataFragment(Hike hike, Fragment fragment){
+    public void setDataFragment(Hike hike, Fragment fragment) {
         Bundle result = new Bundle();
-        result.putLong("h_id",hike.hike_id);
-        result.putString("h_name",hike.name);
-        result.putString("h_location",hike.location);
-        result.putString("h_date",hike.date);
-        result.putString("h_parking",hike.parking);
-        result.putString("h_length",hike.length);
-        result.putString("h_level",hike.level);
-        result.putString("h_description",hike.description);
+        result.putLong("h_id", hike.getId());
+        result.putString("h_name", hike.getName());
+        result.putString("h_location", hike.getLocation());
+        result.putString("h_date", hike.getDate());
+        result.putString("h_parking", hike.getParking());
+        result.putString("h_length", hike.getLength());
+        result.putString("h_level", hike.getLevel());
+        result.putString("h_description", hike.getDescription());
         fragment.setArguments(result);
-        getParentFragmentManager().setFragmentResult("h_data",result);
+        getParentFragmentManager().setFragmentResult("h_data", result);
     }
 
     @Override
-    public void onDeleteClick(Hike hike){
+    public void onDeleteClick(Hike hike) {
         new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.trash)
                 .setTitle(R.string.delete_hike)
-                .setMessage("Are you sure to delete this hike "+hike.name+" ?")
-                .setPositiveButton(R.string.delete, (dialog, which)->{
-                    appDatabase.hikeDao().deleteHike(hike);
+                .setMessage("Are you sure to delete this hike " + hike.getName() + " ?")
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    databaseHelper.deleteHike(hike.getId());
                     hikeList.remove(hike);
                     hikeAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .setCancelable(true)
                 .show();
-    }
-
-    public void deleteAll(){
     }
 
 }

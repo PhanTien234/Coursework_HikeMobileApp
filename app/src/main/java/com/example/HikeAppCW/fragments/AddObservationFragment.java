@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.HikeAppCW.R;
-import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.button.MaterialButton;
 
@@ -37,7 +36,7 @@ import java.util.Locale;
 
 public class AddObservationFragment extends Fragment {
 
-    private AppDatabase appDatabase;
+    private DatabaseHelper databaseHelper;
     private long hikeId;
     private View v;
 
@@ -46,9 +45,7 @@ public class AddObservationFragment extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_add_observation, container, false);
 
-        appDatabase = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "hike_database_db")
-                .allowMainThreadQueries() // For simplicity, don't use this in production
-                .build();
+        databaseHelper = new DatabaseHelper(getContext());
 
         hikeId = getArguments().getLong("hike_id");
 
@@ -161,14 +158,14 @@ public class AddObservationFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Observation observation = new Observation();
-                    observation.observation_name = name;
-                    observation.observation_time = time;
-                    observation.observation_date = date;
-                    observation.observation_weather = selectedWeather;
-                    observation.observation_comment = comment;
-                    observation.ob_hike_id = hikeId;
+                    observation.setObservation_name(name);
+                    observation.setObservation_time(time);
+                    observation.setObservation_date(date);
+                    observation.setObservation_weather(selectedWeather);
+                    observation.setObservation_comment(comment);
+                    observation.setOb_hike_id(hikeId);
 
-                    appDatabase.observationDao().insertObservation(observation);
+                    databaseHelper.insertObservation(observation);
                     Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     // Navigate back to the ObservationFragment for the current hike

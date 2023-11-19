@@ -10,7 +10,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,33 +23,28 @@ import android.widget.TextView;
 
 import com.example.HikeAppCW.R;
 import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Hike;
 import com.google.android.material.button.MaterialButton;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.time.LocalDate;
+import java.util.Calendar;
 
 public class EditHikeFragment extends Fragment {
-    private AppDatabase appDatabase;
+    private DatabaseHelper databaseHelper;
     private String name, location, date, parking, length, level, description;
     private long id;
     EditText editName, editLocation,editLevel, editLength,  editDescription;
     TextView editDate;
     RadioButton editYes, editNo;
 
-    private View v;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        v = inflater.inflate(R.layout.fragment_edit_hike, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit_hike, container, false);
 
-        appDatabase = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "hike_database_db")
-                .allowMainThreadQueries() // For simplicity, don't use this in production
-                .build();
+        databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
+
         editName = v.findViewById(R.id.editHikeName);
         editLocation = v.findViewById(R.id.editHikeLocation);
         editLength = v.findViewById(R.id.editHikeLength);
@@ -113,7 +107,7 @@ public class EditHikeFragment extends Fragment {
                 id = result.getLong("h_id");
 
                 String[] itemList = getResources().getStringArray(R.array.level_list);
-                AutoCompleteTextView autoCompleteTextView = v.findViewById(R.id.editHikeLevel);
+                AutoCompleteTextView autoCompleteTextView = getView().findViewById(R.id.editHikeLevel);
                 ArrayAdapter<String> adapterItem = new ArrayAdapter<String>(getContext(), R.layout.dropdown_list, itemList);
                 autoCompleteTextView.setAdapter(adapterItem);
 
@@ -126,16 +120,16 @@ public class EditHikeFragment extends Fragment {
         new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.updated)
                 .setTitle(R.string.update_hike)
-                .setMessage("Are you sure to update this hikes ?")
+                .setMessage("Are you sure to update this hike?")
                 .setPositiveButton(R.string.update, (dialog, which)->{
-                    appDatabase.hikeDao().updateHike(editHike());
-                    onReplaceFrame(new HomeFragment());
+                    databaseHelper.updateHike(editHike());
+                    onReplaceFrame(new HikeFragment());
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .setCancelable(true)
                 .show();
-
     }
+
     public void onReplaceFrame(Fragment fragment){
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, fragment);
@@ -155,40 +149,42 @@ public class EditHikeFragment extends Fragment {
         level = editLevel.getText().toString();
         description = editDescription.getText().toString();
 
-        Hike hike = new Hike(id, name , location, date, parking, length, level, description);
-        appDatabase.hikeDao().updateHike(hike);
+        Hike hike = new Hike( name , location, date, parking, length, level, description);
+        databaseHelper.updateHike(hike);
 
         return hike;
     }
+
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
+        public Dialog onCreateDialog(@NonNull Bundle savedInstanceState)
         {
-            LocalDate d = LocalDate.now();
-            int year = d.getYear();
-            int month = d.getMonthValue();
-            int day = d.getDayOfMonth();
-            return new DatePickerDialog(getActivity(), this, year, --month, day);}
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day){
-            ((EditHikeFragment)getParentFragment()).formatDOB(year, ++month, day);
+            Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day){
+            ((EditHikeFragment)getParentFragment()).formatDOB(year, month + 1, day);
+        }
     }
+
     public void formatDOB(int year, int month, int day){
 
         String dayZero , monthZero;
-        if (day<10){
-            dayZero="0";
+        if (day < 10){
+            dayZero = "0";
         } else {
-            dayZero="";
+            dayZero = "";
         }
-        if (month<10){
-            monthZero="0";
+        if (month < 10){
+            monthZero = "0";
         } else {
-            monthZero="";
+            monthZero = "";
         }
         TextView date = getView().findViewById(R.id.editHikeDate);
-        date.setText(dayZero+day+"/"+monthZero+month+"/"+year);
+        date.setText(dayZero + day + "/" + monthZero + month + "/" + year);
     }
-
 }

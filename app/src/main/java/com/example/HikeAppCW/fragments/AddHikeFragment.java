@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,75 +23,57 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.HikeAppCW.R;
-import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Hike;
 import com.google.android.material.button.MaterialButton;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddHikeFragment #newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AddHikeFragment extends Fragment {
 
-    private AppDatabase appDatabase;
+    private DatabaseHelper databaseHelper;
     private String parking;
     private View v;
+    private TextView dateHike;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         v = inflater.inflate(R.layout.fragment_add, container, false);
 
-         appDatabase = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "hike_database_db")
-                .allowMainThreadQueries() // For simplicity, don't use this in production
-                .build();
+        // Initialize your SQLite database helper
+        databaseHelper = new DatabaseHelper(getContext());
 
         String[] item = getResources().getStringArray(R.array.level_list);
         AutoCompleteTextView autoCompleteTextView = v.findViewById(R.id.hikeLevel);
-        ArrayAdapter<String> adapterItem = new ArrayAdapter<String>(getContext(),R.layout.dropdown_list, item);
+        ArrayAdapter<String> adapterItem = new ArrayAdapter<>(getContext(), R.layout.dropdown_list, item);
         autoCompleteTextView.setAdapter(adapterItem);
 
-         TextView dateHike = v.findViewById(R.id.hikeDate);
-         dateHike.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getChildFragmentManager(),"Date Picker");
-             }
-         });
+        dateHike = v.findViewById(R.id.hikeDate);
+        dateHike.setOnClickListener(view -> showDatePickerDialog());
 
+        MaterialButton addButton = v.findViewById(R.id.addButton);
+        addButton.setOnClickListener(view -> getData());
 
-       MaterialButton addButton = (MaterialButton) v.findViewById(R.id.addButton);
-       addButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-                getData();
-           }
-       });
-
-       return v;
+        return v;
     }
 
-    private void getData(){
+    private void getData() {
         EditText getName, getLocation, getLength, getLevel, getDescription;
-        TextView getDate, nameCf, locationCf, dateCf,parkingCf, lengthCf, levelCf, descriptionCf;
+        TextView getDate, nameCf, locationCf, dateCf, parkingCf, lengthCf, levelCf, descriptionCf;
         MaterialButton cfCancel, cfYes;
         RadioButton radioYes, radioNo;
 
-        getName = getView().findViewById(R.id.hikeName);
-        getDate = getView().findViewById(R.id.hikeDate);
-        getLocation = getView().findViewById(R.id.hikeLocation);
-        getLength = getView().findViewById(R.id.hikeLength);
-        getLevel = getView().findViewById(R.id.hikeLevel);
-        getDescription = getView().findViewById(R.id.hikeDescription);
+        getName = v.findViewById(R.id.hikeName);
+        getDate = v.findViewById(R.id.hikeDate);
+        getLocation = v.findViewById(R.id.hikeLocation);
+        getLength = v.findViewById(R.id.hikeLength);
+        getLevel = v.findViewById(R.id.hikeLevel);
+        getDescription = v.findViewById(R.id.hikeDescription);
 
-        radioYes = getView().findViewById(R.id.radioYes);
-        radioNo = getView().findViewById(R.id.radioNo);
+        radioYes = v.findViewById(R.id.radioYes);
+        radioNo = v.findViewById(R.id.radioNo);
 
         String name = getName.getText().toString();
         String location = getLocation.getText().toString();
@@ -129,7 +110,6 @@ public class AddHikeFragment extends Fragment {
             levelCf.setText("Difficulty level: " + level);
             descriptionCf.setText("Description: " + description);
 
-
             confirmDialog.setView(viewDialog);
             AlertDialog dialog = confirmDialog.create();
             dialog.show();
@@ -139,23 +119,30 @@ public class AddHikeFragment extends Fragment {
 
             cfYes.setOnClickListener(view -> {
                 Hike hike = new Hike();
-                hike.name = name;
-                hike.location = location;
-                hike.date = date;
-                hike.parking = parking;
-                hike.length = length;
-                hike.level = level;
-                hike.description = description;
+                hike.setName(name);
+                hike.setLocation(location);
+                hike.setDate(date);
+                hike.setParking(parking);
+                hike.setLength(length);
+                hike.setLevel(level);
+                hike.setDescription(description);
 
-                appDatabase.hikeDao().insertHike(hike);
+                // Use the SQLiteDatabase instance to insert the hike
+                databaseHelper.insertHike(hike);
                 Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
 
-                onReplaceFrame(new HomeFragment());
+                onReplaceFrame(new HikeFragment());
             });
         }
     }
-    public void onReplaceFrame(Fragment fragment){
+
+    private void showDatePickerDialog() {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getChildFragmentManager(), "Date Picker");
+    }
+
+    public void onReplaceFrame(Fragment fragment) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, fragment);
         ft.commit();
@@ -165,25 +152,26 @@ public class AddHikeFragment extends Fragment {
             DatePickerDialog.OnDateSetListener {
         @NonNull
         @Override
-        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
-        {
-            LocalDate d = LocalDate.now();
-            int year = d.getYear();
-            int month = d.getMonthValue();
-            int day = d.getDayOfMonth();
-            return new DatePickerDialog(getActivity(), this, year, --month, day);}
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
         @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day){
-            LocalDate dob = LocalDate.of(year, ++month, day);
-            ((AddHikeFragment)getParentFragment()).updateDateOfBirth(dob);
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Display the date in the TextView
+            String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", day, month + 1, year);
+            ((AddHikeFragment) getParentFragment()).updateDate(selectedDate);
         }
     }
 
-    public void updateDateOfBirth(LocalDate dob){
-        TextView dobControl = getView().findViewById(R.id.hikeDate);
-        // Format the date in "dd/MM/yyyy" format
-        String formattedDate = dob.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        dobControl.setText(formattedDate);
+    public void updateDate(String selectedDate) {
+        dateHike.setText(selectedDate);
     }
-
 }

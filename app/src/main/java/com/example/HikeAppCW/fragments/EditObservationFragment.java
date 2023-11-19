@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +18,10 @@ import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.HikeAppCW.R;
-import com.example.HikeAppCW.databases.AppDatabase;
+import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.button.MaterialButton;
 
@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class EditObservationFragment extends Fragment {
 
-    private AppDatabase appDatabase;
+    private DatabaseHelper databaseHelper;
     private String name, time, date, weather, comment;
     private long id, hikeId;
     private View v;
@@ -42,9 +42,7 @@ public class EditObservationFragment extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_edit_observation, container, false);
 
-        appDatabase = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "hike_database_db")
-                .allowMainThreadQueries() // For simplicity, don't use this in production
-                .build();
+        databaseHelper = new DatabaseHelper(getContext());
 
         id = getArguments().getLong("ob_id");
         name = getArguments().getString("ob_name");
@@ -169,38 +167,36 @@ public class EditObservationFragment extends Fragment {
         String updatedWeather = weatherLevelEdit.getText().toString();
         String updatedComment = editObComment.getText().toString();
 
+        new AlertDialog.Builder(getContext())
+                .setIcon(R.drawable.updated)
+                .setTitle("Update Observations")
+                .setMessage("Are you sure to update this observation?")
+                .setPositiveButton(R.string.update, (dialog, which) -> {
+                    Observation observation = new Observation();
+                    observation.setObservation_id(id);
+                    observation.setObservation_name(updatedName);
+                    observation.setObservation_time(updatedTime);
+                    observation.setObservation_date(updatedDate);
+                    observation.setObservation_weather(updatedWeather);
+                    observation.setObservation_comment(updatedComment);
+                    observation.setOb_hike_id(hikeId);
 
-            new AlertDialog.Builder(getContext())
-                    .setIcon(R.drawable.updated)
-                    .setTitle("Update Observations")
-                    .setMessage("Are you sure to update this observation?")
-                    .setPositiveButton(R.string.update, (dialog, which) -> {
-                        Observation observation = new Observation();
-                        observation.observation_id = id;
-                        observation.observation_name = updatedName;
-                        observation.observation_time = updatedTime;
-                        observation.observation_date = updatedDate;
-                        observation.observation_weather = updatedWeather;
-                        observation.observation_comment = updatedComment;
-                        observation.ob_hike_id = hikeId;
+                    databaseHelper.updateObservation(observation);
 
-                        appDatabase.observationDao().updateObservation(observation);
+                    // Optionally, you can navigate back to the ObservationFragment
+                    // for the current hike after updating
+                    ObservationFragment observationFragment = new ObservationFragment();
+                    Bundle args = new Bundle();
+                    args.putLong("h_id", hikeId);
+                    observationFragment.setArguments(args);
+                    onReplaceFrame(observationFragment);
 
-                        // Optionally, you can navigate back to the ObservationFragment
-                        // for the current hike after updating
-                        ObservationFragment observationFragment = new ObservationFragment();
-                        Bundle args = new Bundle();
-                        args.putLong("h_id", hikeId);
-                        observationFragment.setArguments(args);
-                        onReplaceFrame(observationFragment);
-
-                        dialog.dismiss();
-                    })
-                    .setNegativeButton(R.string.cancel, null)
-                    .setCancelable(true)
-                    .show();
-        }
-
+                    dialog.dismiss();
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .setCancelable(true)
+                .show();
+    }
 
     public void onReplaceFrame(Fragment fragment) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();

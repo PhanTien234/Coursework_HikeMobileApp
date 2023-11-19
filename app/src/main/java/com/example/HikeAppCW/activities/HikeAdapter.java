@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.HikeAppCW.R;
+import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.fragments.EditHikeFragment;
 import com.example.HikeAppCW.fragments.ObservationFragment;
 import com.example.HikeAppCW.models.Hike;
@@ -18,12 +19,12 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
-public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.MyViewHolder>{
+public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.MyViewHolder> {
     Context context;
     List<Hike> hikes;
     private OnClickListener onClickListener;
 
-    public HikeAdapter(Context context, List<Hike> hikes, OnClickListener onClickListener){
+    public HikeAdapter(Context context, List<Hike> hikes, OnClickListener onClickListener) {
         this.context = context;
         this.hikes = hikes;
         this.onClickListener = onClickListener;
@@ -39,7 +40,7 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.MyViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Hike hike = hikes.get(position);
-        holder.cardName.setText(hike.name);
+        holder.cardName.setText(hike.getName());
 
         holder.cardName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +51,6 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.MyViewHolder>{
             }
         });
 
-
         holder.more.setOnClickListener(view -> {
             Fragment fragment = new ObservationFragment();
             onClickListener.setDataFragment(hike, fragment);
@@ -58,7 +58,7 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.MyViewHolder>{
         });
 
         holder.delete.setOnClickListener(view -> {
-            onClickListener.onDeleteClick(hikes.get(position));
+            onClickListener.onDeleteClick(hike);
         });
     }
 
@@ -67,15 +67,15 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.MyViewHolder>{
         return hikes.size();
     }
 
-    public interface OnClickListener{
+    public interface OnClickListener {
         void onDeleteClick(Hike hike);
+
         void onReplaceFrame(Fragment fragment);
+
         void setDataFragment(Hike hike, Fragment fragment);
     }
 
-
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView cardName;
         MaterialButton more, delete;
 
