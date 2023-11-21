@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -44,11 +45,20 @@ public class ObservationFragment extends Fragment implements ObservationAdapter.
             fragment.setArguments(result);
             onObservationReplaceFrame(fragment);
         });
+        FloatingActionButton deleteAllObservations = v.findViewById(R.id.deleteAllObserva);
+        deleteAllObservations.setOnClickListener(view -> deleteAllObsers());
 
         observations = databaseHelper.getObservationsForHike(hike_id);
         observationAdapter = new ObservationAdapter(getContext(), observations, this);
         obRecyclerView.setAdapter(observationAdapter);
 
+        ImageView backHikeFragment1 = v.findViewById(R.id.backHikeFragment1);
+        backHikeFragment1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onObservationReplaceFrame(new HikeFragment());
+            }
+        });
         return v;
     }
 
@@ -78,6 +88,21 @@ public class ObservationFragment extends Fragment implements ObservationAdapter.
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                     databaseHelper.deleteObservation(observation);
                     observations.remove(observation);
+                    observationAdapter.notifyDataSetChanged();
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .setCancelable(true)
+                .show();
+    }
+
+    public void deleteAllObsers() {
+        new AlertDialog.Builder(getContext())
+                .setIcon(R.drawable.trash)
+                .setTitle(R.string.delete_hike)
+                .setMessage("Are you sure to delete all observations?")
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    databaseHelper.deleteAllObservations();
+                    observations.clear();
                     observationAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton(R.string.cancel, null)

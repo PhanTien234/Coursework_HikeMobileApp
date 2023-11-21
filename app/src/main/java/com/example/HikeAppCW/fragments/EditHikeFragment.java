@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
@@ -18,22 +19,24 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.HikeAppCW.R;
-import com.example.HikeAppCW.databases.AppDatabase;
 import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Hike;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class EditHikeFragment extends Fragment {
+
     private DatabaseHelper databaseHelper;
     private String name, location, date, parking, length, level, description;
     private long id;
-    EditText editName, editLocation,editLevel, editLength,  editDescription;
+    EditText editName, editLocation, editLevel, editLength, editDescription;
     TextView editDate;
     RadioButton editYes, editNo;
 
@@ -60,7 +63,7 @@ public class EditHikeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getChildFragmentManager(),"Date Picker");
+                newFragment.show(getChildFragmentManager(), "Date Picker");
             }
         });
 
@@ -71,10 +74,18 @@ public class EditHikeFragment extends Fragment {
                 updateButton();
             }
         });
+
+        ImageView backHikeFragment = v.findViewById(R.id.backHikeFragment);
+        backHikeFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onReplaceFrame(new HikeFragment());
+            }
+        });
         return v;
     }
 
-    private void getDataHike(){
+    private void getDataHike() {
 
         getParentFragmentManager().setFragmentResultListener("h_data", this, new FragmentResultListener() {
             @Override
@@ -99,7 +110,7 @@ public class EditHikeFragment extends Fragment {
                 editDescription.setText(description);
 
                 parking = result.getString("h_parking");
-                if (parking.equals("Yes")){
+                if (parking.equals("Yes")) {
                     editYes.setChecked(true);
                 } else {
                     editNo.setChecked(true);
@@ -108,21 +119,21 @@ public class EditHikeFragment extends Fragment {
 
                 String[] itemList = getResources().getStringArray(R.array.level_list);
                 AutoCompleteTextView autoCompleteTextView = getView().findViewById(R.id.editHikeLevel);
-                ArrayAdapter<String> adapterItem = new ArrayAdapter<String>(getContext(), R.layout.dropdown_list, itemList);
+                ArrayAdapter<String> adapterItem = new ArrayAdapter<String>(getContext(), R.layout.list_dropdown, itemList);
                 autoCompleteTextView.setAdapter(adapterItem);
 
             }
         });
 
     }
-
-    public void updateButton(){
+    public void updateButton() {
         new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.updated)
                 .setTitle(R.string.update_hike)
                 .setMessage("Are you sure to update this hike?")
-                .setPositiveButton(R.string.update, (dialog, which)->{
-                    databaseHelper.updateHike(editHike());
+                .setPositiveButton(R.string.update, (dialog, which) -> {
+                    Hike updatedHike = editHike(); // Get the updated hike
+                    databaseHelper.updateHike(updatedHike); // Update the database with the new data
                     onReplaceFrame(new HikeFragment());
                 })
                 .setNegativeButton(R.string.cancel, null)
@@ -130,17 +141,17 @@ public class EditHikeFragment extends Fragment {
                 .show();
     }
 
-    public void onReplaceFrame(Fragment fragment){
+    public void onReplaceFrame(Fragment fragment) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout, fragment);
         ft.commit();
     }
 
-    private Hike editHike(){
+    private Hike editHike() {
         name = editName.getText().toString();
         location = editLocation.getText().toString();
         date = editDate.getText().toString();
-        if (editYes.isChecked()){
+        if (editYes.isChecked()) {
             parking = "Yes";
         } else {
             parking = "No";
@@ -149,42 +160,35 @@ public class EditHikeFragment extends Fragment {
         level = editLevel.getText().toString();
         description = editDescription.getText().toString();
 
-        Hike hike = new Hike( name , location, date, parking, length, level, description);
-        databaseHelper.updateHike(hike);
-
+        Hike hike = new Hike(name, location, date, parking, length, level, description);
+        hike.setId(id); // Set the ID of the existing hike
         return hike;
     }
 
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-        public Dialog onCreateDialog(@NonNull Bundle savedInstanceState)
-        {
-            Calendar c = Calendar.getInstance();
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(requireContext(), this, year, month, day);
         }
 
         @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day){
-            ((EditHikeFragment)getParentFragment()).formatDOB(year, month + 1, day);
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Display the date in the TextView
+            String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", day, month + 1, year);
+            ((EditHikeFragment) getParentFragment()).updateDate(selectedDate);
         }
     }
-
-    public void formatDOB(int year, int month, int day){
-
-        String dayZero , monthZero;
-        if (day < 10){
-            dayZero = "0";
-        } else {
-            dayZero = "";
-        }
-        if (month < 10){
-            monthZero = "0";
-        } else {
-            monthZero = "";
-        }
-        TextView date = getView().findViewById(R.id.editHikeDate);
-        date.setText(dayZero + day + "/" + monthZero + month + "/" + year);
+    public void updateDate(String selectedDate) {
+        editDate.setText(selectedDate);
     }
+
 }

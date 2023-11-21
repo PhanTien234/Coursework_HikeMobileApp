@@ -73,9 +73,9 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
         MaterialButton edit, delete;
         public MyObservationViewHolder(@NonNull View itemView) {
             super(itemView);
-            observationName = itemView.findViewById(R.id.cardObservationName);
-            edit = itemView.findViewById(R.id.cardObservationEdit);
-            delete = itemView.findViewById(R.id.cardObservationDelete);
+            observationName = itemView.findViewById(R.id.observationNameCard);
+            edit = itemView.findViewById(R.id.observationEditCard);
+            delete = itemView.findViewById(R.id.observationDeleteCard);
         }
     }
 }

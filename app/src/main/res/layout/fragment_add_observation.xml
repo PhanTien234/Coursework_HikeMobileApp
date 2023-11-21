@@ -102,5 +102,9 @@
             android:textSize="20dp" />
 
     </LinearLayout>
-
+    <ImageView
+        android:id="@+id/backObservationFragment2"
+        android:layout_width="47dp"
+        android:layout_height="80dp"
+        android:src="@drawable/icon_back" />
 </FrameLayout>

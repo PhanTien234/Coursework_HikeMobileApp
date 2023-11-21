@@ -13,7 +13,7 @@ import com.example.HikeAppCW.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private BottomNavigationView navigationView;
+    private BottomNavigationView navigationBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFrameLayout(new HikeFragment());
 
-        navigationView = findViewById(R.id.navMenu);
-        navigationView.setSelectedItemId(R.id.navHome);
+        navigationBar = findViewById(R.id.navMenu);
+        navigationBar.setSelectedItemId(R.id.navHome);
 
-        navigationView.setOnItemSelectedListener(item -> {
+        navigationBar.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.navHome){
                 replaceFrameLayout(new HikeFragment());
             } else if (item.getItemId() == R.id.navAdd){

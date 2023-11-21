@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -51,7 +52,7 @@ public class AddObservationFragment extends Fragment {
 
         AutoCompleteTextView weatherLevel = v.findViewById(R.id.weatherLevel);
         String[] weatherLevels = getResources().getStringArray(R.array.weather_list);
-        ArrayAdapter<String> adapterWeather = new ArrayAdapter<>(getContext(), R.layout.dropdown_list, weatherLevels);
+        ArrayAdapter<String> adapterWeather = new ArrayAdapter<>(getContext(), R.layout.list_dropdown, weatherLevels);
         weatherLevel.setAdapter(adapterWeather);
 
         TextView obDate = v.findViewById(R.id.obDate);
@@ -76,6 +77,18 @@ public class AddObservationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getObData();
+            }
+        });
+
+        ImageView backObservationFragment2 = v.findViewById(R.id.backObservationFragment2);
+        backObservationFragment2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ObservationFragment observationFragment = new ObservationFragment();
+                Bundle args = new Bundle();
+                args.putLong("h_id", hikeId);
+                observationFragment.setArguments(args);
+                onReplaceFrame(observationFragment);
             }
         });
 

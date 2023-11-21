@@ -242,4 +242,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_OBSERVATION, OBSERVATION_ID + " = ?",
                 new String[]{String.valueOf(observation.observation_id)});
     }
+
+    public void deleteAllObservations() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_OBSERVATION, null, null);
+    }
 }

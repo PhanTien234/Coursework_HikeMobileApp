@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:gravity="center">
         <TextView
-            android:id="@+id/cardObservationName"
+            android:id="@+id/observationNameCard"
             style="@style/textInput"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -20,14 +20,14 @@
             android:text="NAME"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cardObservationDelete"
+            android:id="@+id/observationDeleteCard"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="#BA0000"
             android:paddingLeft="15dp"
             app:icon="@drawable/delete" />
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cardObservationEdit"
+            android:id="@+id/observationEditCard"
             style="@style/button"
             android:backgroundTint="@color/btncolor"
             android:text="Edit"

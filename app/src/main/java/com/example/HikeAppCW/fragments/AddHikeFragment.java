@@ -47,7 +47,7 @@ public class AddHikeFragment extends Fragment {
 
         String[] item = getResources().getStringArray(R.array.level_list);
         AutoCompleteTextView autoCompleteTextView = v.findViewById(R.id.hikeLevel);
-        ArrayAdapter<String> adapterItem = new ArrayAdapter<>(getContext(), R.layout.dropdown_list, item);
+        ArrayAdapter<String> adapterItem = new ArrayAdapter<>(getContext(), R.layout.list_dropdown, item);
         autoCompleteTextView.setAdapter(adapterItem);
 
         dateHike = v.findViewById(R.id.hikeDate);

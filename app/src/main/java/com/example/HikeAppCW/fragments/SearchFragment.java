@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.HikeAppCW.R;
 import com.example.HikeAppCW.activities.HikeAdapter;
@@ -30,11 +32,8 @@ public class SearchFragment extends Fragment implements HikeAdapter.OnClickListe
     String name;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
-
         databaseHelper = new DatabaseHelper(getContext());
 
         RecyclerView recyclerView = v.findViewById(R.id.recyclerViewSearch);
@@ -43,14 +42,34 @@ public class SearchFragment extends Fragment implements HikeAdapter.OnClickListe
         MaterialButton searchBtn = v.findViewById(R.id.searchButton);
         searchBtn.setOnClickListener(view -> {
             EditText searchText = v.findViewById(R.id.searchByName);
-            name = "%" + searchText.getText().toString() + "%";
-            hikeList = databaseHelper.searchHikeName(name);
-            hikeAdapter = new HikeAdapter(getContext(), hikeList, this);
-            recyclerView.setAdapter(hikeAdapter);
+
+            if (searchText.getText().toString().trim().isEmpty()) {
+                // Search text is empty, display a Toast
+                Toast.makeText(getContext(), "Please type the hike you want to search", Toast.LENGTH_SHORT).show();
+            } else {
+                // Search text is not empty, perform the search
+                name = "%" + searchText.getText().toString() + "%";
+                hikeList = databaseHelper.searchHikeName(name);
+
+                if (hikeList.isEmpty()) {
+                    // Show a message when no results are found
+                    recyclerView.setVisibility(View.GONE);
+                    TextView noResultsMessage = v.findViewById(R.id.noResultsMessage);
+                    noResultsMessage.setVisibility(View.VISIBLE);
+                } else {
+                    // Hide the message if there are results
+                    recyclerView.setVisibility(View.VISIBLE);
+                    TextView noResultsMessage = v.findViewById(R.id.noResultsMessage);
+                    noResultsMessage.setVisibility(View.GONE);
+                    hikeAdapter = new HikeAdapter(getContext(), hikeList, this);
+                    recyclerView.setAdapter(hikeAdapter);
+                }
+            }
         });
 
         return v;
     }
+
 
 
     public void onReplaceFrame(Fragment fragment){

@@ -15,10 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.HikeAppCW.R;
 import com.example.HikeAppCW.databases.DatabaseHelper;
@@ -81,9 +81,20 @@ public class EditObservationFragment extends Fragment {
 
         // Populate the weather dropdown
         String[] weatherLevels = getResources().getStringArray(R.array.weather_list);
-        ArrayAdapter<String> adapterWeather = new ArrayAdapter<>(getContext(), R.layout.dropdown_list, weatherLevels);
+        ArrayAdapter<String> adapterWeather = new ArrayAdapter<>(getContext(), R.layout.list_dropdown, weatherLevels);
         weatherLevelEdit.setAdapter(adapterWeather);
 
+        ImageView backObservationFragment = v.findViewById(R.id.backObservationFragment);
+        backObservationFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ObservationFragment observationFragment = new ObservationFragment();
+                Bundle args = new Bundle();
+                args.putLong("h_id", hikeId);
+                observationFragment.setArguments(args);
+                onReplaceFrame(observationFragment);
+            }
+        });
         MaterialButton editObButton = v.findViewById(R.id.editObButton);
         editObButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +102,6 @@ public class EditObservationFragment extends Fragment {
                 updateObservation();
             }
         });
-
         return v;
     }
 
