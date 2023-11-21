@@ -1,7 +1,7 @@
 package com.example.HikeAppCW.models;
 
 public class Hike {
-    private long hike_id;
+    private long hikeId;
     private String name;
     private String location;
     private String date;
@@ -28,11 +28,11 @@ public class Hike {
     // Getters and Setters
 
     public long getId() {
-        return hike_id;
+        return hikeId;
     }
 
     public void setId(long id) {
-        this.hike_id = id;
+        this.hikeId = id;
     }
 
     public String getName() {

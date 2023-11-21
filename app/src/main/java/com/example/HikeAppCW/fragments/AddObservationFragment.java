@@ -39,23 +39,22 @@ public class AddObservationFragment extends Fragment {
 
     private DatabaseHelper databaseHelper;
     private long hikeId;
-    private View v;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_add_observation, container, false);
-
+        view = inflater.inflate(R.layout.add_observation_fragment, container, false);
         databaseHelper = new DatabaseHelper(getContext());
 
         hikeId = getArguments().getLong("hike_id");
 
-        AutoCompleteTextView weatherLevel = v.findViewById(R.id.weatherLevel);
+        AutoCompleteTextView weatherLevel = view.findViewById(R.id.weatherLevel);
         String[] weatherLevels = getResources().getStringArray(R.array.weather_list);
         ArrayAdapter<String> adapterWeather = new ArrayAdapter<>(getContext(), R.layout.list_dropdown, weatherLevels);
         weatherLevel.setAdapter(adapterWeather);
 
-        TextView obDate = v.findViewById(R.id.dateObser);
+        TextView obDate = view.findViewById(R.id.dateObser);
         obDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +63,7 @@ public class AddObservationFragment extends Fragment {
             }
         });
 
-        TextView obTime = v.findViewById(R.id.timeObser);
+        TextView obTime = view.findViewById(R.id.timeObser);
         obTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +71,7 @@ public class AddObservationFragment extends Fragment {
             }
         });
 
-        MaterialButton addObButton = v.findViewById(R.id.btnAddObser);
+        MaterialButton addObButton = view.findViewById(R.id.btnAddObser);
         addObButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +79,7 @@ public class AddObservationFragment extends Fragment {
             }
         });
 
-        ImageView backObservationFragment2 = v.findViewById(R.id.backObservationFragment2);
+        ImageView backObservationFragment2 = view.findViewById(R.id.backObservationFragment2);
         backObservationFragment2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +91,7 @@ public class AddObservationFragment extends Fragment {
             }
         });
 
-        return v;
+        return view;
     }
 
     private void showTimePicker() {
@@ -109,7 +108,7 @@ public class AddObservationFragment extends Fragment {
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         // Update the TextView with the selected time
                         String formattedTime = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute);
-                        TextView obTime = v.findViewById(R.id.timeObser);
+                        TextView obTime = view.findViewById(R.id.timeObser);
                         obTime.setText(formattedTime);
                     }
                 },
@@ -123,11 +122,11 @@ public class AddObservationFragment extends Fragment {
     }
 
     private void getObData() {
-        EditText obName = v.findViewById(R.id.nameObser);
-        TextView obTime = v.findViewById(R.id.timeObser);
-        TextView obDate = v.findViewById(R.id.dateObser);
-        MultiAutoCompleteTextView obComment = v.findViewById(R.id.commentObser);
-        AutoCompleteTextView weatherLevel = v.findViewById(R.id.weatherLevel);
+        EditText obName = view.findViewById(R.id.nameObser);
+        TextView obTime = view.findViewById(R.id.timeObser);
+        TextView obDate = view.findViewById(R.id.dateObser);
+        MultiAutoCompleteTextView obComment = view.findViewById(R.id.commentObser);
+        AutoCompleteTextView weatherLevel = view.findViewById(R.id.weatherLevel);
 
         String name = obName.getText().toString();
         String time = obTime.getText().toString();
@@ -171,12 +170,12 @@ public class AddObservationFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Observation observation = new Observation();
-                    observation.setObservation_name(name);
-                    observation.setObservation_time(time);
-                    observation.setObservation_date(date);
-                    observation.setObservation_weather(selectedWeather);
-                    observation.setObservation_comment(comment);
-                    observation.setOb_hike_id(hikeId);
+                    observation.setObservationName(name);
+                    observation.setObservationTime(time);
+                    observation.setObservationDate(date);
+                    observation.setObservationWeather(selectedWeather);
+                    observation.setObservationComment(comment);
+                    observation.setObHikeId(hikeId);
 
                     databaseHelper.insertObservation(observation);
                     Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
@@ -194,9 +193,9 @@ public class AddObservationFragment extends Fragment {
     }
 
     public void onReplaceFrame(Fragment fragment) {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.layoutFrames, fragment);
-        ft.commit();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.layoutFrames, fragment);
+        fragmentTransaction.commit();
     }
 
     public static class DatePickerFragment extends DialogFragment implements
@@ -220,7 +219,7 @@ public class AddObservationFragment extends Fragment {
     }
 
     public void updateDate(LocalDate selectedDate) {
-        TextView obDate = v.findViewById(R.id.dateObser);
+        TextView obDate = view.findViewById(R.id.dateObser);
         String formattedDate = selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         obDate.setText(formattedDate);
     }

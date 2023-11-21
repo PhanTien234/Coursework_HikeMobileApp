@@ -31,7 +31,7 @@ public class SearchFragment extends Fragment implements HikeAdapter.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_search, container, false);
+        View v = inflater.inflate(R.layout.search_fragment, container, false);
         databaseHelper = new DatabaseHelper(getContext());
 
         RecyclerView recyclerView = v.findViewById(R.id.recyclerViewSearch);

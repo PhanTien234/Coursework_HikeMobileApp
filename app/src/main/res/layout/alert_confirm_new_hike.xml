@@ -53,7 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#DFDFDF"
+                android:background="#37FE00"
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
@@ -63,6 +63,7 @@
                     android:padding="0dp"
                     style="@style/yesNoBtn"
                     android:textColor="@color/cancercolorbutton"
+                    android:textStyle="bold"
                     android:text="Cancel"/>
 
                 <com.google.android.material.button.MaterialButton
@@ -71,6 +72,7 @@
                     android:layout_width="0dp"
                     style="@style/yesNoBtn"
                     android:textColor="@color/colorbutton"
+                    android:textStyle="bold"
                     android:text="Confirm"/>
             </LinearLayout>
 </LinearLayout>

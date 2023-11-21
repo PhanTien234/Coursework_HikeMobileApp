@@ -6,86 +6,86 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "observation")
 public class Observation {
     @PrimaryKey(autoGenerate = true)
-    public long observation_id;
+    public long observationId;
 
-    public String observation_name;
-    public String observation_time;
-    public String observation_date;
-    public String observation_weather;
-    public String observation_comment;
+    public String observationName;
+    public String observationTime;
+    public String observationDate;
+    public String observationWeather;
+    public String observationComment;
 
-    public long ob_hike_id;
+    public long obHikeId;
 
-    public Observation(long observation_id, String observation_name, String observation_time, String observation_date , String observation_weather,
-                       String observation_comment, long ob_hike_id) {
-        this.observation_id = observation_id;
-        this.observation_name = observation_name;
-        this.observation_time = observation_time;
-        this.observation_date = observation_date;
-        this.observation_weather = observation_weather;
-        this.observation_comment = observation_comment;
-        this.ob_hike_id = ob_hike_id;
+    public Observation(long observationId, String observationName, String observationTime, String observationDate, String observationWeather,
+                       String observationComment, long obHikeId) {
+        this.observationId = observationId;
+        this.observationName = observationName;
+        this.observationTime = observationTime;
+        this.observationDate = observationDate;
+        this.observationWeather = observationWeather;
+        this.observationComment = observationComment;
+        this.obHikeId = obHikeId;
     }
 
     public Observation(long id){
-        this.ob_hike_id = id;
+        this.obHikeId = id;
     }
 
     public Observation(){}
 
-    public long getObservation_id() {
-        return observation_id;
+    public long getObservationId() {
+        return observationId;
     }
 
-    public void setObservation_id(long observation_id) {
-        this.observation_id = observation_id;
+    public void setObservationId(long observationId) {
+        this.observationId = observationId;
     }
 
-    public String getObservation_name() {
-        return observation_name;
+    public String getObservationName() {
+        return observationName;
     }
 
-    public void setObservation_name(String observation_name) {
-        this.observation_name = observation_name;
+    public void setObservationName(String observationName) {
+        this.observationName = observationName;
     }
 
-    public String getObservation_time() {
-        return observation_time;
+    public String getObservationTime() {
+        return observationTime;
     }
 
-    public void setObservation_time(String observation_time) {
-        this.observation_time = observation_time;
+    public void setObservationTime(String observationTime) {
+        this.observationTime = observationTime;
     }
 
-    public String getObservation_date() {
-        return observation_date;
+    public String getObservationDate() {
+        return observationDate;
     }
 
-    public void setObservation_date(String observation_date) {
-        this.observation_date = observation_date;
+    public void setObservationDate(String observationDate) {
+        this.observationDate = observationDate;
     }
 
-    public String getObservation_weather() {
-        return observation_weather;
+    public String getObservationWeather() {
+        return observationWeather;
     }
 
-    public void setObservation_weather(String observation_weather) {
-        this.observation_weather = observation_weather;
+    public void setObservationWeather(String observationWeather) {
+        this.observationWeather = observationWeather;
     }
 
-    public String getObservation_comment() {
-        return observation_comment;
+    public String getObservationComment() {
+        return observationComment;
     }
 
-    public void setObservation_comment(String observation_comment) {
-        this.observation_comment = observation_comment;
+    public void setObservationComment(String observationComment) {
+        this.observationComment = observationComment;
     }
 
-    public long getOb_hike_id() {
-        return ob_hike_id;
+    public long getObHikeId() {
+        return obHikeId;
     }
 
-    public void setOb_hike_id(long ob_hike_id) {
-        this.ob_hike_id = ob_hike_id;
+    public void setObHikeId(long obHikeId) {
+        this.obHikeId = obHikeId;
     }
 }

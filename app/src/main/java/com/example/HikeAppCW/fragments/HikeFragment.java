@@ -16,7 +16,6 @@ import com.example.HikeAppCW.R;
 import com.example.HikeAppCW.activities.HikeAdapter;
 import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Hike;
-import com.example.HikeAppCW.models.Observation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class HikeFragment extends Fragment implements HikeAdapter.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.home_fragment, container, false);
 
         databaseHelper = new DatabaseHelper(getContext());
 
@@ -49,9 +48,9 @@ public class HikeFragment extends Fragment implements HikeAdapter.OnClickListene
     }
 
     public void onReplaceFrameLayout(Fragment fragment) {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.layoutFrames, fragment);
-        ft.commit();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.layoutFrames, fragment);
+        fragmentTransaction.commit();
     }
 
     public void setDataHikeFragment(Hike hike, Fragment fragment) {

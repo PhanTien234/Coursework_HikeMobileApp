@@ -28,7 +28,7 @@ public class ObservationFragment extends Fragment implements ObservationAdapter.
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_observation, container, false);
+        View view1 = inflater.inflate(R.layout.observation_fragment, container, false);
 
         databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
 
@@ -36,30 +36,30 @@ public class ObservationFragment extends Fragment implements ObservationAdapter.
         Bundle result = new Bundle();
         result.putLong("hike_id", hike_id);
 
-        RecyclerView obRecyclerView = v.findViewById(R.id.observationRecyclerView);
+        RecyclerView obRecyclerView = view1.findViewById(R.id.observationRecyclerView);
         obRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FloatingActionButton newOb = v.findViewById(R.id.newObservation);
+        FloatingActionButton newOb = view1.findViewById(R.id.newObservation);
         newOb.setOnClickListener(view -> {
             Fragment fragment = new AddObservationFragment();
             fragment.setArguments(result);
             onObservationReplaceFrame(fragment);
         });
-        FloatingActionButton deleteAllObservations = v.findViewById(R.id.deleteAllObserva);
+        FloatingActionButton deleteAllObservations = view1.findViewById(R.id.deleteAllObserva);
         deleteAllObservations.setOnClickListener(view -> deleteAllObsers());
 
         observations = databaseHelper.getObservationsForHike(hike_id);
         observationAdapter = new ObservationAdapter(getContext(), observations, this);
         obRecyclerView.setAdapter(observationAdapter);
 
-        ImageView backHikeFragment1 = v.findViewById(R.id.backHikeFragment1);
+        ImageView backHikeFragment1 = view1.findViewById(R.id.backHikeFragment1);
         backHikeFragment1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onObservationReplaceFrame(new HikeFragment());
             }
         });
-        return v;
+        return view1;
     }
 
     public void onObservationReplaceFrame(Fragment fragment) {
@@ -70,13 +70,13 @@ public class ObservationFragment extends Fragment implements ObservationAdapter.
 
     public void setObservationDataFragment(Observation observation, Fragment fragment) {
         Bundle result = new Bundle();
-        result.putLong("ob_id", observation.observation_id);
-        result.putString("ob_name", observation.observation_name);
-        result.putString("ob_time", observation.observation_time);
-        result.putString("ob_date", observation.observation_date);
-        result.putString("ob_weather", observation.observation_weather);
-        result.putString("ob_comment", observation.observation_comment);
-        result.putLong("ob_hike_id", observation.ob_hike_id);
+        result.putLong("ob_id", observation.observationId);
+        result.putString("ob_name", observation.observationName);
+        result.putString("ob_time", observation.observationTime);
+        result.putString("ob_date", observation.observationDate);
+        result.putString("ob_weather", observation.observationWeather);
+        result.putString("ob_comment", observation.observationComment);
+        result.putLong("obHikeId", observation.obHikeId);
         fragment.setArguments(result);
     }
 
@@ -84,7 +84,7 @@ public class ObservationFragment extends Fragment implements ObservationAdapter.
         new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.trash)
                 .setTitle(R.string.delete_ob)
-                .setMessage("Are you sure to delete this observation " + observation.observation_name + " ?")
+                .setMessage("Are you sure to delete this observation " + observation.observationName + " ?")
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                     databaseHelper.deleteObservation(observation);
                     observations.remove(observation);

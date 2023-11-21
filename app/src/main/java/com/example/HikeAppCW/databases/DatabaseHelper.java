@@ -1,6 +1,5 @@
 package com.example.HikeAppCW.databases;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "hikeApp_database";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Hike table
     private static final String TABLE_HIKE = "hikes";
@@ -181,12 +180,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long insertObservation(Observation observation) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(OBSERVATION_NAME, observation.getObservation_name());
-        values.put(OBSERVATION_TIME, observation.getObservation_time());
-        values.put(OBSERVATION_DATE, observation.getObservation_date());
-        values.put(OBSERVATION_WEATHER, observation.getObservation_weather());
-        values.put(OBSERVATION_COMMENT, observation.getObservation_comment());
-        values.put(OB_HIKE_ID, observation.getOb_hike_id());
+        values.put(OBSERVATION_NAME, observation.getObservationName());
+        values.put(OBSERVATION_TIME, observation.getObservationTime());
+        values.put(OBSERVATION_DATE, observation.getObservationDate());
+        values.put(OBSERVATION_WEATHER, observation.getObservationWeather());
+        values.put(OBSERVATION_COMMENT, observation.getObservationComment());
+        values.put(OB_HIKE_ID, observation.getObHikeId());
 
         // Insert row
         long observationId = db.insert(TABLE_OBSERVATION, null, values);
@@ -205,13 +204,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Observation observation = new Observation();
-                observation.observation_id = cursor.getLong(cursor.getColumnIndex(OBSERVATION_ID));
-                observation.observation_name = cursor.getString(cursor.getColumnIndex(OBSERVATION_NAME));
-                observation.observation_time = cursor.getString(cursor.getColumnIndex(OBSERVATION_TIME));
-                observation.observation_date = cursor.getString(cursor.getColumnIndex(OBSERVATION_DATE));
-                observation.observation_weather = cursor.getString(cursor.getColumnIndex(OBSERVATION_WEATHER));
-                observation.observation_comment = cursor.getString(cursor.getColumnIndex(OBSERVATION_COMMENT));
-                observation.ob_hike_id = cursor.getLong(cursor.getColumnIndex(OB_HIKE_ID));
+                observation.observationId = cursor.getLong(cursor.getColumnIndex(OBSERVATION_ID));
+                observation.observationName = cursor.getString(cursor.getColumnIndex(OBSERVATION_NAME));
+                observation.observationTime = cursor.getString(cursor.getColumnIndex(OBSERVATION_TIME));
+                observation.observationDate = cursor.getString(cursor.getColumnIndex(OBSERVATION_DATE));
+                observation.observationWeather = cursor.getString(cursor.getColumnIndex(OBSERVATION_WEATHER));
+                observation.observationComment = cursor.getString(cursor.getColumnIndex(OBSERVATION_COMMENT));
+                observation.obHikeId = cursor.getLong(cursor.getColumnIndex(OB_HIKE_ID));
 
                 observationList.add(observation);
             } while (cursor.moveToNext());
@@ -225,22 +224,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int updateObservation(Observation observation) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(OBSERVATION_NAME, observation.getObservation_name());
-        values.put(OBSERVATION_TIME, observation.getObservation_time());
-        values.put(OBSERVATION_DATE, observation.getObservation_date());
-        values.put(OBSERVATION_WEATHER, observation.getObservation_weather());
-        values.put(OBSERVATION_COMMENT, observation.getObservation_comment());
-        values.put(OB_HIKE_ID, observation.getOb_hike_id());
+        values.put(OBSERVATION_NAME, observation.getObservationName());
+        values.put(OBSERVATION_TIME, observation.getObservationTime());
+        values.put(OBSERVATION_DATE, observation.getObservationDate());
+        values.put(OBSERVATION_WEATHER, observation.getObservationWeather());
+        values.put(OBSERVATION_COMMENT, observation.getObservationComment());
+        values.put(OB_HIKE_ID, observation.getObHikeId());
 
         // Updating row
         return db.update(TABLE_OBSERVATION, values, OBSERVATION_ID + " = ?",
-                new String[]{String.valueOf(observation.getObservation_id())});
+                new String[]{String.valueOf(observation.getObservationId())});
     }
 
     public void deleteObservation(Observation observation) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_OBSERVATION, OBSERVATION_ID + " = ?",
-                new String[]{String.valueOf(observation.observation_id)});
+                new String[]{String.valueOf(observation.observationId)});
     }
 
     public void deleteAllObservations() {

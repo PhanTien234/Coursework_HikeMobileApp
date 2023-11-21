@@ -40,7 +40,7 @@ public class EditObservationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_edit_observation, container, false);
+        v = inflater.inflate(R.layout.edit_observation_fragment, container, false);
 
         databaseHelper = new DatabaseHelper(getContext());
 
@@ -50,7 +50,7 @@ public class EditObservationFragment extends Fragment {
         date = getArguments().getString("ob_date");
         weather = getArguments().getString("ob_weather");
         comment = getArguments().getString("ob_comment");
-        hikeId = getArguments().getLong("ob_hike_id");
+        hikeId = getArguments().getLong("obHikeId");
 
         EditText editObName = v.findViewById(R.id.editObName);
         TextView obTimeEdit = v.findViewById(R.id.obTimeEdit);
@@ -183,13 +183,13 @@ public class EditObservationFragment extends Fragment {
                 .setMessage("Are you sure to update this observation?")
                 .setPositiveButton(R.string.update, (dialog, which) -> {
                     Observation observation = new Observation();
-                    observation.setObservation_id(id);
-                    observation.setObservation_name(updatedName);
-                    observation.setObservation_time(updatedTime);
-                    observation.setObservation_date(updatedDate);
-                    observation.setObservation_weather(updatedWeather);
-                    observation.setObservation_comment(updatedComment);
-                    observation.setOb_hike_id(hikeId);
+                    observation.setObservationId(id);
+                    observation.setObservationName(updatedName);
+                    observation.setObservationTime(updatedTime);
+                    observation.setObservationDate(updatedDate);
+                    observation.setObservationWeather(updatedWeather);
+                    observation.setObservationComment(updatedComment);
+                    observation.setObHikeId(hikeId);
 
                     databaseHelper.updateObservation(observation);
 

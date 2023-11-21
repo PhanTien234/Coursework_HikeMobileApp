@@ -17,7 +17,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
-public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.MyObservationViewHolder> {
+public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.CardObservationViewHolder> {
     Context context;
     List<Observation> observations;
     private OnObservationClickListener onObservationClickListener;
@@ -30,15 +30,15 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
 
     @NonNull
     @Override
-    public MyObservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CardObservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.observation_card_view, parent, false);
-        return new MyObservationViewHolder(v);
+        return new CardObservationViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyObservationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CardObservationViewHolder holder, int position) {
         Observation observation = observations.get(position);
-        holder.observationName.setText(observation.observation_name);
+        holder.observationName.setText(observation.observationName);
 
 
         holder.edit.setOnClickListener(view -> {
@@ -66,12 +66,11 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
 
     }
 
-    public static class MyObservationViewHolder extends RecyclerView.ViewHolder{
-
+    public static class CardObservationViewHolder extends RecyclerView.ViewHolder{
         TextView observationName;
 
         MaterialButton edit, delete;
-        public MyObservationViewHolder(@NonNull View itemView) {
+        public CardObservationViewHolder(@NonNull View itemView) {
             super(itemView);
             observationName = itemView.findViewById(R.id.nameObservationItem);
             edit = itemView.findViewById(R.id.editObservationItem);

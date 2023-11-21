@@ -34,46 +34,44 @@ public class AddHikeFragment extends Fragment {
 
     private DatabaseHelper databaseHelper;
     private String parking;
-    private View v;
+    private View view;
     private TextView dateHike;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_add, container, false);
-
-        // Initialize your SQLite database helper
+        view = inflater.inflate(R.layout.add_hike_fragment, container, false);
         databaseHelper = new DatabaseHelper(getContext());
 
         String[] item = getResources().getStringArray(R.array.level_list);
-        AutoCompleteTextView autoCompleteTextView = v.findViewById(R.id.levelHike);
+        AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.levelHike);
         ArrayAdapter<String> adapterItem = new ArrayAdapter<>(getContext(), R.layout.list_dropdown, item);
         autoCompleteTextView.setAdapter(adapterItem);
 
-        dateHike = v.findViewById(R.id.dateHike);
+        dateHike = view.findViewById(R.id.dateHike);
         dateHike.setOnClickListener(view -> showDatePickerDialog());
 
-        MaterialButton addButton = v.findViewById(R.id.btnAdd);
+        MaterialButton addButton = view.findViewById(R.id.btnAdd);
         addButton.setOnClickListener(view -> getData());
 
-        return v;
+        return view;
     }
 
     private void getData() {
         EditText getName, getLocation, getLength, getLevel, getDescription;
-        TextView getDate, nameCf, locationCf, dateCf, parkingCf, lengthCf, levelCf, descriptionCf;
-        MaterialButton cfCancel, cfYes;
+        TextView getDate, confirmName, confirmLocation, confirmDate, confirmParking, confirmLength, confirmLevel, confirmDescription;
+        MaterialButton confirmCancel, confirmYes;
         RadioButton radioYes, radioNo;
 
-        getName = v.findViewById(R.id.nameHike);
-        getDate = v.findViewById(R.id.dateHike);
-        getLocation = v.findViewById(R.id.locationHike);
-        getLength = v.findViewById(R.id.lengthHike);
-        getLevel = v.findViewById(R.id.levelHike);
-        getDescription = v.findViewById(R.id.descriptionHike);
+        getName = view.findViewById(R.id.nameHike);
+        getDate = view.findViewById(R.id.dateHike);
+        getLocation = view.findViewById(R.id.locationHike);
+        getLength = view.findViewById(R.id.lengthHike);
+        getLevel = view.findViewById(R.id.levelHike);
+        getDescription = view.findViewById(R.id.descriptionHike);
 
-        radioYes = v.findViewById(R.id.radioYes);
-        radioNo = v.findViewById(R.id.radioNo);
+        radioYes = view.findViewById(R.id.radioYes);
+        radioNo = view.findViewById(R.id.radioNo);
 
         String name = getName.getText().toString();
         String location = getLocation.getText().toString();
@@ -89,35 +87,35 @@ public class AddHikeFragment extends Fragment {
         } else {
 
             AlertDialog.Builder confirmDialog = new AlertDialog.Builder(getContext());
-            View viewDialog = getLayoutInflater().inflate(R.layout.alert_dialog, null);
+            View viewDialog = getLayoutInflater().inflate(R.layout.alert_confirm_new_hike, null);
 
-            nameCf = viewDialog.findViewById(R.id.cfName);
-            locationCf = viewDialog.findViewById(R.id.cfLocation);
-            dateCf = viewDialog.findViewById(R.id.cfDate);
-            parkingCf = viewDialog.findViewById(R.id.cfParking);
-            lengthCf = viewDialog.findViewById(R.id.cfLength);
-            levelCf = viewDialog.findViewById(R.id.cfLevel);
-            descriptionCf = viewDialog.findViewById(R.id.cfDescription);
+            confirmName = viewDialog.findViewById(R.id.cfName);
+            confirmLocation = viewDialog.findViewById(R.id.cfLocation);
+            confirmDate = viewDialog.findViewById(R.id.cfDate);
+            confirmParking = viewDialog.findViewById(R.id.cfParking);
+            confirmLength = viewDialog.findViewById(R.id.cfLength);
+            confirmLevel = viewDialog.findViewById(R.id.cfLevel);
+            confirmDescription = viewDialog.findViewById(R.id.cfDescription);
 
-            cfCancel = viewDialog.findViewById(R.id.btnCancerCf);
-            cfYes = viewDialog.findViewById(R.id.btnYesCf);
+            confirmCancel = viewDialog.findViewById(R.id.btnCancerCf);
+            confirmYes = viewDialog.findViewById(R.id.btnYesCf);
 
-            nameCf.setText("Name: " + name);
-            locationCf.setText("Location: " + location);
-            dateCf.setText("Date of the Hike: " + date);
-            parkingCf.setText("Parking: " + parking);
-            lengthCf.setText("Length of the Hike: " + length);
-            levelCf.setText("Difficulty level: " + level);
-            descriptionCf.setText("Description: " + description);
+            confirmName.setText("Name: " + name);
+            confirmLocation.setText("Location: " + location);
+            confirmDate.setText("Date of the Hike: " + date);
+            confirmParking.setText("Parking: " + parking);
+            confirmLength.setText("Length of the Hike: " + length);
+            confirmLevel.setText("Difficulty level: " + level);
+            confirmDescription.setText("Description: " + description);
 
             confirmDialog.setView(viewDialog);
             AlertDialog dialog = confirmDialog.create();
             dialog.show();
-            cfCancel.setOnClickListener(view -> {
+            confirmCancel.setOnClickListener(view -> {
                 dialog.dismiss();
             });
 
-            cfYes.setOnClickListener(view -> {
+            confirmYes.setOnClickListener(view -> {
                 Hike hike = new Hike();
                 hike.setName(name);
                 hike.setLocation(location);
