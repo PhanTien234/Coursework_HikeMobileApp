@@ -46,14 +46,14 @@ public class AddHikeFragment extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
 
         String[] item = getResources().getStringArray(R.array.level_list);
-        AutoCompleteTextView autoCompleteTextView = v.findViewById(R.id.hikeLevel);
+        AutoCompleteTextView autoCompleteTextView = v.findViewById(R.id.levelHike);
         ArrayAdapter<String> adapterItem = new ArrayAdapter<>(getContext(), R.layout.list_dropdown, item);
         autoCompleteTextView.setAdapter(adapterItem);
 
-        dateHike = v.findViewById(R.id.hikeDate);
+        dateHike = v.findViewById(R.id.dateHike);
         dateHike.setOnClickListener(view -> showDatePickerDialog());
 
-        MaterialButton addButton = v.findViewById(R.id.addButton);
+        MaterialButton addButton = v.findViewById(R.id.btnAdd);
         addButton.setOnClickListener(view -> getData());
 
         return v;
@@ -65,12 +65,12 @@ public class AddHikeFragment extends Fragment {
         MaterialButton cfCancel, cfYes;
         RadioButton radioYes, radioNo;
 
-        getName = v.findViewById(R.id.hikeName);
-        getDate = v.findViewById(R.id.hikeDate);
-        getLocation = v.findViewById(R.id.hikeLocation);
-        getLength = v.findViewById(R.id.hikeLength);
-        getLevel = v.findViewById(R.id.hikeLevel);
-        getDescription = v.findViewById(R.id.hikeDescription);
+        getName = v.findViewById(R.id.nameHike);
+        getDate = v.findViewById(R.id.dateHike);
+        getLocation = v.findViewById(R.id.locationHike);
+        getLength = v.findViewById(R.id.lengthHike);
+        getLevel = v.findViewById(R.id.levelHike);
+        getDescription = v.findViewById(R.id.descriptionHike);
 
         radioYes = v.findViewById(R.id.radioYes);
         radioNo = v.findViewById(R.id.radioNo);
@@ -91,16 +91,16 @@ public class AddHikeFragment extends Fragment {
             AlertDialog.Builder confirmDialog = new AlertDialog.Builder(getContext());
             View viewDialog = getLayoutInflater().inflate(R.layout.alert_dialog, null);
 
-            nameCf = viewDialog.findViewById(R.id.confirmName);
-            locationCf = viewDialog.findViewById(R.id.confirmLocation);
-            dateCf = viewDialog.findViewById(R.id.confirmDate);
-            parkingCf = viewDialog.findViewById(R.id.confirmParking);
-            lengthCf = viewDialog.findViewById(R.id.confirmLength);
-            levelCf = viewDialog.findViewById(R.id.confirmLevel);
-            descriptionCf = viewDialog.findViewById(R.id.confirmDescription);
+            nameCf = viewDialog.findViewById(R.id.cfName);
+            locationCf = viewDialog.findViewById(R.id.cfLocation);
+            dateCf = viewDialog.findViewById(R.id.cfDate);
+            parkingCf = viewDialog.findViewById(R.id.cfParking);
+            lengthCf = viewDialog.findViewById(R.id.cfLength);
+            levelCf = viewDialog.findViewById(R.id.cfLevel);
+            descriptionCf = viewDialog.findViewById(R.id.cfDescription);
 
-            cfCancel = viewDialog.findViewById(R.id.confirmCancel);
-            cfYes = viewDialog.findViewById(R.id.confirmYes);
+            cfCancel = viewDialog.findViewById(R.id.btnCancerCf);
+            cfYes = viewDialog.findViewById(R.id.btnYesCf);
 
             nameCf.setText("Name: " + name);
             locationCf.setText("Location: " + location);
@@ -144,7 +144,7 @@ public class AddHikeFragment extends Fragment {
 
     public void onReplaceFrame(Fragment fragment) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, fragment);
+        ft.replace(R.id.layoutFrames, fragment);
         ft.commit();
     }
 

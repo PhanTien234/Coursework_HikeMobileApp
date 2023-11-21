@@ -19,33 +19,34 @@
             android:gravity="center"
             android:text="Update hike"
             android:textSize="33dp"
-            android:fontFamily="@font/bahnschrift" />
+            android:textColor="#000"
+            android:fontFamily="@font/cassadia" />
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:text="@string/name_hike" />
 
         <EditText
             android:id="@+id/editHikeName"
-            style="@style/textInput"
+            style="@style/inputStyle"
             android:hint="Name of the hike"
             android:textAlignment="textStart" />
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:text="@string/location" />
         <EditText
             android:id="@+id/editHikeLocation"
-            style="@style/textInput"
+            style="@style/inputStyle"
             android:textAlignment="textStart"
             android:hint="Location" />
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:text="@string/date_hike" />
         <TextView
             android:id="@+id/editHikeDate"
-            style="@style/textInput"
+            style="@style/inputStyle"
             android:textAlignment="textStart"
             android:hint="dd/mm/yyyy"/>
 
@@ -56,7 +57,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                style="@style/textTile"
+                style="@style/titleText"
                 android:text="@string/parking" />
 
             <View
@@ -64,8 +65,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"/>
             <RadioButton
-                android:id="@+id/radioYesEdit"
-                style="@style/radioButton"
+                android:id="@+id/editRadioYes"
+                style="@style/btnradio"
                 android:checked="true"
                 android:text="Yes"/>
             <View
@@ -73,8 +74,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"/>
             <RadioButton
-                android:id="@+id/radioNoEdit"
-                style="@style/radioButton"
+                android:id="@+id/editRadioNo"
+                style="@style/btnradio"
                 android:text="No"/>
             <View
                 android:layout_width="0dp"
@@ -89,7 +90,7 @@
             android:layout_marginBottom="5dp"
             android:gravity="center">
             <TextView
-                style="@style/textTile"
+                style="@style/titleText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/length" />
@@ -97,7 +98,7 @@
                 android:id="@+id/editHikeLength"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                style="@style/textInput"
+                style="@style/inputStyle"
                 android:hint="100"
                 />
         </LinearLayout>
@@ -117,7 +118,7 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/editHikeLevel"
-                    style="@style/textTile"
+                    style="@style/titleText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="none"/>
@@ -125,7 +126,7 @@
         </LinearLayout>
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:text="Description" />
 
         <MultiAutoCompleteTextView
@@ -144,7 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:backgroundTint="@color/btncolor"
+            android:backgroundTint="@color/colorbutton"
             android:fontFamily="@font/cassadia"
             android:text="UPDATE"
             android:textSize="20dp" />

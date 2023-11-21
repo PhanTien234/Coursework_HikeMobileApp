@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFrameLayout(new HikeFragment());
 
-        navigationBar = findViewById(R.id.navMenu);
+        navigationBar = findViewById(R.id.menuNav);
         navigationBar.setSelectedItemId(R.id.navHome);
 
         navigationBar.setOnItemSelectedListener(item -> {
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void replaceFrameLayout(Fragment fragment){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, fragment);
+        ft.replace(R.id.layoutFrames, fragment);
         ft.commit();
     }
 }

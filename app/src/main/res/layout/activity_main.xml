@@ -7,14 +7,14 @@
     tools:context=".activities.MainActivity">
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/layoutFrames"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/navMenu"/>
+        app:layout_constraintBottom_toTopOf="@+id/menuNav"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navMenu"
+        android:id="@+id/menuNav"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

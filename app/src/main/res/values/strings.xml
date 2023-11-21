@@ -13,8 +13,6 @@
     <string name="update"><font color='#52d053'>Update</font></string>
     <string name="cancel"><font color='#000000'>Cancel</font></string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string-array name="level_list">
         <item>Easy</item>
         <item>Moderate</item>

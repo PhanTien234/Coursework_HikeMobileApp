@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.HikeAppCW.R;
 import com.example.HikeAppCW.activities.HikeAdapter;
-import com.example.HikeAppCW.databases.AppDatabase;
 import com.example.HikeAppCW.databases.DatabaseHelper;
 import com.example.HikeAppCW.models.Hike;
 import com.google.android.material.button.MaterialButton;
@@ -29,7 +27,7 @@ public class SearchFragment extends Fragment implements HikeAdapter.OnClickListe
     private DatabaseHelper databaseHelper;
     private HikeAdapter hikeAdapter;
     private List<Hike> hikeList;
-    String name;
+    String nameData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,8 +46,8 @@ public class SearchFragment extends Fragment implements HikeAdapter.OnClickListe
                 Toast.makeText(getContext(), "Please type the hike you want to search", Toast.LENGTH_SHORT).show();
             } else {
                 // Search text is not empty, perform the search
-                name = "%" + searchText.getText().toString() + "%";
-                hikeList = databaseHelper.searchHikeName(name);
+                nameData = "%" + searchText.getText().toString() + "%";
+                hikeList = databaseHelper.searchHikeName(nameData);
 
                 if (hikeList.isEmpty()) {
                     // Show a message when no results are found
@@ -72,12 +70,12 @@ public class SearchFragment extends Fragment implements HikeAdapter.OnClickListe
 
 
 
-    public void onReplaceFrame(Fragment fragment){
+    public void onReplaceFrameLayout(Fragment fragment){
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, fragment);
+        ft.replace(R.id.layoutFrames, fragment);
         ft.commit();
     }
-    public void setDataFragment(Hike hike, Fragment fragment) {
+    public void setDataHikeFragment(Hike hike, Fragment fragment) {
         Bundle result = new Bundle();
         result.putLong("h_id", hike.getId());
         result.putString("h_name", hike.getName());

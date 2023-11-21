@@ -18,33 +18,34 @@
             android:gravity="center"
             android:text="Add new hike"
             android:textSize="33dp"
-            android:fontFamily="@font/avob" />
+            android:textColor="#000"
+            android:fontFamily="@font/cassadia" />
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:text="@string/name_hike" />
 
         <EditText
-            android:id="@+id/hikeName"
-            style="@style/textInput"
+            android:id="@+id/nameHike"
+            style="@style/inputStyle"
             android:hint="Name of the hike"
             android:textAlignment="textStart" />
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:text="@string/location" />
         <EditText
-            android:id="@+id/hikeLocation"
-            style="@style/textInput"
+            android:id="@+id/locationHike"
+            style="@style/inputStyle"
             android:textAlignment="textStart"
             android:hint="Location" />
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:text="@string/date_hike" />
         <TextView
-            android:id="@+id/hikeDate"
-            style="@style/textInput"
+            android:id="@+id/dateHike"
+            style="@style/inputStyle"
             android:textAlignment="textStart"
             android:hint="dd/mm/yyyy"/>
 
@@ -55,7 +56,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                style="@style/textTile"
+                style="@style/titleText"
                 android:text="@string/parking" />
 
             <View
@@ -64,7 +65,7 @@
                 android:layout_weight="2"/>
             <RadioButton
                 android:id="@+id/radioYes"
-                style="@style/radioButton"
+                style="@style/btnradio"
                 android:checked="true"
                 android:text="Yes"/>
             <View
@@ -73,7 +74,7 @@
                 android:layout_weight="2"/>
             <RadioButton
                 android:id="@+id/radioNo"
-                style="@style/radioButton"
+                style="@style/btnradio"
                 android:text="No"/>
             <View
                 android:layout_width="0dp"
@@ -88,15 +89,15 @@
             android:layout_marginBottom="5dp"
             android:gravity="center">
             <TextView
-                style="@style/textTile"
+                style="@style/titleText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/length" />
             <EditText
-                android:id="@+id/hikeLength"
+                android:id="@+id/lengthHike"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                style="@style/textInput"
+                style="@style/inputStyle"
                 android:hint="100"
                 />
         </LinearLayout>
@@ -116,8 +117,8 @@
                 android:hint="@string/difficult">
 
                 <AutoCompleteTextView
-                    android:id="@+id/hikeLevel"
-                    style="@style/textTile"
+                    android:id="@+id/levelHike"
+                    style="@style/titleText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="none"/>
@@ -125,11 +126,11 @@
         </LinearLayout>
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:text="Description" />
 
         <MultiAutoCompleteTextView
-            android:id="@+id/hikeDescription"
+            android:id="@+id/descriptionHike"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:background="@drawable/edit_text_border"
@@ -140,12 +141,12 @@
             android:hint="Description about the hike" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addButton"
+            android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:backgroundTint="@color/btncolor"
-            android:fontFamily="@font/avob"
+            android:backgroundTint="@color/colorbutton"
+            android:fontFamily="@font/cassadia"
             android:text="ADD"
             android:textSize="20dp" />
 

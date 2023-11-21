@@ -178,7 +178,7 @@ public class EditObservationFragment extends Fragment {
         String updatedComment = editObComment.getText().toString();
 
         new AlertDialog.Builder(getContext())
-                .setIcon(R.drawable.updated)
+                .setIcon(R.drawable.shield)
                 .setTitle("Update Observations")
                 .setMessage("Are you sure to update this observation?")
                 .setPositiveButton(R.string.update, (dialog, which) -> {
@@ -210,7 +210,7 @@ public class EditObservationFragment extends Fragment {
 
     public void onReplaceFrame(Fragment fragment) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, fragment);
+        ft.replace(R.id.layoutFrames, fragment);
         ft.commit();
     }
 }

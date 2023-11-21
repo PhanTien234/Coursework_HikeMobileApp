@@ -31,7 +31,7 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
     @NonNull
     @Override
     public MyObservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.observation_card_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.observation_card_view, parent, false);
         return new MyObservationViewHolder(v);
     }
 
@@ -73,9 +73,9 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
         MaterialButton edit, delete;
         public MyObservationViewHolder(@NonNull View itemView) {
             super(itemView);
-            observationName = itemView.findViewById(R.id.observationNameCard);
-            edit = itemView.findViewById(R.id.observationEditCard);
-            delete = itemView.findViewById(R.id.observationDeleteCard);
+            observationName = itemView.findViewById(R.id.nameObservationItem);
+            edit = itemView.findViewById(R.id.editObservationItem);
+            delete = itemView.findViewById(R.id.deleteObservationItem);
         }
     }
 }

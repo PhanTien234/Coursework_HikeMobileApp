@@ -30,6 +30,7 @@
                 android:layout_marginHorizontal="5dp"
                 android:text="Search hike"
                 android:textSize="33dp"
+                android:textColor="#000"
                 android:fontFamily="@font/cassadia" />
         </LinearLayout>
 
@@ -43,7 +44,7 @@
             <EditText
                 android:id="@+id/searchByName"
                 android:layout_height="50dp"
-                style="@style/textInput"
+                style="@style/inputStyle"
                 android:hint="Name of the hike"
                 android:textAlignment="textStart"
                 android:textColorHint="#7E7E7E"/>
@@ -57,12 +58,12 @@
                 android:translationX="-55dp"
                 app:iconGravity="textStart"
                 app:iconSize="35dp"
-                app:iconTint="@color/btncolor"
+                app:iconTint="@color/colorbutton"
                 android:backgroundTint="@color/transparent"/>
         </LinearLayout>
 
         <TextView
-            style="@style/textTile"
+            style="@style/titleText"
             android:textSize="30dp"
             android:layout_marginHorizontal="20dp"
             android:text="Hikes"/>

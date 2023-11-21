@@ -7,10 +7,10 @@
 
     <TextView
         android:textAlignment="center"
-        style="@style/textTile"
+        style="@style/titleText"
         android:textSize="25dp"
-        android:fontFamily="@font/avob"
-        android:text="New Observation information"/>
+        android:fontFamily="@font/bahnschrift"
+        android:text="New Observation details"/>
 
 
     <LinearLayout
@@ -21,25 +21,25 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/confirmNameOb"
-            style="@style/textTile"
+            android:id="@+id/cfNameObser"
+            style="@style/titleText"
             android:text="Name:" />
 
         <TextView
-            android:id="@+id/confirmTimeOb"
-            style="@style/textTile"
+            android:id="@+id/cfTimeObser"
+            style="@style/titleText"
             android:text="Time:"/>
         <TextView
-            android:id="@+id/confirmDateOb"
-            style="@style/textTile"
+            android:id="@+id/cfDateObser"
+            style="@style/titleText"
             android:text="Date observation:"/>
         <TextView
-            android:id="@+id/confirmWeatherOb"
-            style="@style/textTile"
+            android:id="@+id/cfWeatherObser"
+            style="@style/titleText"
             android:text="Weather:"/>
         <TextView
-            android:id="@+id/confirmDescriptionOb"
-            style="@style/textTile"
+            android:id="@+id/cfDescriptionObser"
+            style="@style/titleText"
             android:text="Description:"/>
 
     </LinearLayout>
@@ -51,20 +51,20 @@
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/confirmCancel"
+            android:id="@+id/btnCancerCf"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:padding="0dp"
-            style="@style/buttonYesNo"
-            android:textColor="@color/btncancelcolor"
+            style="@style/yesNoBtn"
+            android:textColor="@color/cancercolorbutton"
             android:text="Cancel"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/confirmYes"
+            android:id="@+id/btnYesCf"
             android:layout_weight="1"
             android:layout_width="0dp"
-            style="@style/buttonYesNo"
-            android:textColor="@color/btncolor"
+            style="@style/yesNoBtn"
+            android:textColor="@color/colorbutton"
             android:text="Confirm"/>
     </LinearLayout>
 </LinearLayout>

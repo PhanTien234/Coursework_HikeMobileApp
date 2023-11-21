@@ -54,8 +54,8 @@ public class EditHikeFragment extends Fragment {
         editLevel = v.findViewById(R.id.editHikeLevel);
         editDescription = v.findViewById(R.id.editHikeDescription);
         editDate = v.findViewById(R.id.editHikeDate);
-        editYes = v.findViewById(R.id.radioYesEdit);
-        editNo = v.findViewById(R.id.radioNoEdit);
+        editYes = v.findViewById(R.id.editRadioYes);
+        editNo = v.findViewById(R.id.editRadioNo);
 
         getDataHike();
 
@@ -128,7 +128,7 @@ public class EditHikeFragment extends Fragment {
     }
     public void updateButton() {
         new AlertDialog.Builder(getContext())
-                .setIcon(R.drawable.updated)
+                .setIcon(R.drawable.shield)
                 .setTitle(R.string.update_hike)
                 .setMessage("Are you sure to update this hike?")
                 .setPositiveButton(R.string.update, (dialog, which) -> {
@@ -143,7 +143,7 @@ public class EditHikeFragment extends Fragment {
 
     public void onReplaceFrame(Fragment fragment) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, fragment);
+        ft.replace(R.id.layoutFrames, fragment);
         ft.commit();
     }
 

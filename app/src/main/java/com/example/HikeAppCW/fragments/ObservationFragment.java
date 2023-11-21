@@ -63,9 +63,9 @@ public class ObservationFragment extends Fragment implements ObservationAdapter.
     }
 
     public void onObservationReplaceFrame(Fragment fragment) {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, fragment);
-        ft.commit();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.layoutFrames, fragment);
+        fragmentTransaction.commit();
     }
 
     public void setObservationDataFragment(Observation observation, Fragment fragment) {

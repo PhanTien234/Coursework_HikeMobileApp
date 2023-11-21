@@ -26,7 +26,6 @@ public class HikeFragment extends Fragment implements HikeAdapter.OnClickListene
     private DatabaseHelper databaseHelper;
     private HikeAdapter hikeAdapter;
     private List<Hike> hikeList;
-    private List<Observation> observationList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +35,7 @@ public class HikeFragment extends Fragment implements HikeAdapter.OnClickListene
 
         databaseHelper = new DatabaseHelper(getContext());
 
-        FloatingActionButton deleteAll = v.findViewById(R.id.deleteAll);
+        FloatingActionButton deleteAll = v.findViewById(R.id.deleteAllHikes);
         deleteAll.setOnClickListener(view -> deleteAll());
 
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
@@ -49,13 +48,13 @@ public class HikeFragment extends Fragment implements HikeAdapter.OnClickListene
         return v;
     }
 
-    public void onReplaceFrame(Fragment fragment) {
+    public void onReplaceFrameLayout(Fragment fragment) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout, fragment);
+        ft.replace(R.id.layoutFrames, fragment);
         ft.commit();
     }
 
-    public void setDataFragment(Hike hike, Fragment fragment) {
+    public void setDataHikeFragment(Hike hike, Fragment fragment) {
         Bundle result = new Bundle();
         result.putLong("h_id", hike.getId());
         result.putString("h_name", hike.getName());

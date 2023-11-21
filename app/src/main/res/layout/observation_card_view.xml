@@ -12,26 +12,28 @@
         android:orientation="horizontal"
         android:gravity="center">
         <TextView
-            android:id="@+id/nameCard"
-            style="@style/textInput"
+            android:id="@+id/nameObservationItem"
+            style="@style/inputStyle"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_marginHorizontal="5dp"
-            android:text="NAME"/>
+            android:layout_marginHorizontal="5dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/deleteCard"
+            android:id="@+id/deleteObservationItem"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="#BA0000"
             android:paddingLeft="15dp"
             app:icon="@drawable/delete" />
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/moreCard"
+            android:id="@+id/editObservationItem"
             style="@style/button"
-            android:backgroundTint="@color/btncolor"
-            android:text="More"
+            android:backgroundTint="@color/colorbutton"
+            android:text="Edit"
             />
+
+
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
