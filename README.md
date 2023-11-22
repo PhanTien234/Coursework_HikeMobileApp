@@ -15,9 +15,9 @@ Hike App, a cutting-edge mobile application, is tailor-made for hikers seeking s
 3. **Viewing Hike Details**: Access a comprehensive list or detailed information of stored hikes.
 4. **Efficient Search**: Easily find hikes based on multiple criteria.
 5. **Editing or Deleting Hike Details**: Modify or remove stored information about hikes.
-6. **Add More Observation** : You can add more observations for each Hike item specific
-7. **Delete Each Item Observation or Delete all Observation**: Remove specific for each Item Observation or remove out all items
-8. **View Details and Edit Observation**:  View detail all item Observation for each Item Hike specific, Update any change details
+6. **Add More Observation**: You can add more observations for each Hike item-specific
+7. **Delete Each Item Observation or Delete all Observation**: Remove specific for each Item Observation or remove all items
+8. **View Details and Edit Observation**:  View details all item Observation for each Item Hike specific, Update any change details
 
 ### Additional Notes
 - Detailed information is securely stored in an SQLite database on the user's device.
@@ -36,7 +36,7 @@ Contribute to the app's enhancement by:
 - Opening pull requests
 
 ### React Native Version
-Explore the React Native alternative implementation at [COMP1786-CourseWork-ReWork](https://github.com/1Ir-is/COMP1786-CourseWork-ReWork) for those interested. Note that the React Native version currently lacks a search function.
+Explore the React Native alternative implementation at [Coursework_HikeMobileApp](https://github.com/PhanTien234/Coursework_HikeMobileApp) for those interested. Note that the React Native version currently lacks a search function.
 
 ## Acknowledgments
-Developed by 1Ir-is (Huynh Minh Huy) - TCD0702 - 001353732.
+Developed by PhanTien234 (Phan Minh Tien) - TCD0702 - 001353768.
