@@ -13,9 +13,7 @@ public class Observation {
     public String observationDate;
     public String observationWeather;
     public String observationComment;
-
     public long obHikeId;
-
     public Observation(long observationId, String observationName, String observationTime, String observationDate, String observationWeather,
                        String observationComment, long obHikeId) {
         this.observationId = observationId;
@@ -26,7 +24,6 @@ public class Observation {
         this.observationComment = observationComment;
         this.obHikeId = obHikeId;
     }
-
     public Observation(long id){
         this.obHikeId = id;
     }

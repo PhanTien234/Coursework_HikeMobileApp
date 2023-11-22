@@ -9,12 +9,8 @@ public class Hike {
     private String length;
     private String level;
     private String description;
-
-    // Constructors
-
     public Hike() {
     }
-
     public Hike(String name, String location, String date, String parking, String length, String level, String description) {
         this.name = name;
         this.location = location;
@@ -24,8 +20,6 @@ public class Hike {
         this.level = level;
         this.description = description;
     }
-
-    // Getters and Setters
 
     public long getId() {
         return hikeId;
